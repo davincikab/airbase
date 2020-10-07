@@ -16,9 +16,6 @@ body {
     background-color:var(--dark);
 }
 
-main {
-    /* background-image: url(bg-image.jpg); */
-}
 
 .row {
     margin: 0;

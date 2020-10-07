@@ -55,15 +55,36 @@ map.on('load', function () {
         }
     });
 
-    // load icons
-
-
+    // load data
     loadData();
+
+    // hover effect
+    map.on('mouseenter', 'airbase', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    
+    map.on('mouseleave', 'airbase', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+    // interactivity
+    map.on("click", "airbase", function(e) {
+        let features = map.queryRenderedFeatures(e.point, {
+            layers:['airbase']
+        });
+
+        if(features[0]) {
+            let feature = features[0];
+
+            updateSectionInfo(feature);
+        }
+    });
 });
 
 function loadData() {
     d3.csv("LongBow_CSV.csv")
     .then(data => {
+        console.log(data);
         // create geojson
         let geoJson = createGeojson(data);
 
@@ -102,4 +123,34 @@ function createGeojson(airbases) {
 
     console.log(featureCollection);
     return featureCollection;
+}
+
+var airbaseTitle = document.getElementById("airbase-title");
+var ammoProgress = document.getElementById("ammo-progress");
+var defenceProgress = document.getElementById("defence-progress");
+var fuelProgress = document.getElementById("fuel-progress");
+
+var ammoText = document.getElementById("ammo-text");
+var defenceText = document.getElementById("defence-text");
+var fuelText = document.getElementById("fuel-text");
+
+function updateSectionInfo(feature) {
+    // update the title
+    airbaseTitle.innerHTML = feature.properties.airportName;
+
+    // update indicators
+    ammoProgress.style.width = feature.properties.ammo + "px";
+    ammoProgress.setAttribute("aria-valuenow", feature.properties.ammo);
+
+    defenceProgress.style.width = feature.properties.defences + "px";
+    defenceProgress.setAttribute("aria-valuenow", feature.properties.defences);
+
+    fuelProgress.style.width = feature.properties.fuel + "px";
+    fuelProgress.setAttribute("aria-valuenow", feature.properties.fuel);
+
+    // text
+    ammoText.innerHTML = feature.properties.ammo + "%";
+    defenceText.innerHTML = feature.properties.defences + "%";
+    fuelText.innerHTML = feature.properties.fuel + "%";
+    
 }
