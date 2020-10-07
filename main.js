@@ -12,7 +12,24 @@ var dummyGeojson = {
     "features":[]
 };
 
+var images = ["Airport_Blue", "Airport_Red", "Airport_Neutral", "Farp_Red", "Farp_Neutral"];
+
+// load the image
+function loadImages() {
+    images.forEach(imageString => {
+        let imageName = imageString.split("_").join(" ");
+    
+        map.loadImage("icons/"+imageName+".png", function(error, image) {
+            if (error) throw error;
+            if(!map.hasImage(imageString)) {
+                map.addImage(imageString.toLowerCase(), image);
+            }
+        });
+    });
+}
+
 map.on('load', function () {
+    loadImages()
     map.addSource("airbases", {
         "type":"geojson",
         "data":dummyGeojson
@@ -23,8 +40,15 @@ map.on('load', function () {
         "source":"airbases",
         "type":"symbol",
         "layout": {
-            "icon-image":"airport-15",
-            "icon-size":0.9
+            "icon-image":[
+                'match',
+                ["get", "coaltion_in_control"],
+                "0", "airport_neutral",
+                "1", "airport_blue",
+                "2", "airport_red",
+                "airport-15"
+            ],
+            "icon-size":0.1
         },
         "paint":{
 
@@ -32,7 +56,7 @@ map.on('load', function () {
     });
 
     // load icons
-    
+
 
     loadData();
 });
