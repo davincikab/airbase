@@ -144,6 +144,8 @@ function createGeojson(airbases) {
 }
 
 var airbaseTitle = document.getElementById("airbase-title");
+var airbaseTitleContainer = document.getElementById("title-contaier");
+
 var ammoProgress = document.getElementById("ammo-progress");
 var defenceProgress = document.getElementById("defence-progress");
 var fuelProgress = document.getElementById("fuel-progress");
@@ -152,9 +154,25 @@ var ammoText = document.getElementById("ammo-text");
 var defenceText = document.getElementById("defence-text");
 var fuelText = document.getElementById("fuel-text");
 
+var bgColors = {
+    "0":"bg-gradient-neutral",
+    "1":"bg-gradient-blue",
+    "2":"bg-gradient-red"
+};
+
 function updateSectionInfo(feature) {
     // update the title
     airbaseTitle.innerHTML = feature.properties.airportName;
+    airbaseTitleContainer.classList.forEach(cssClass => {
+        if(cssClass.includes("bg-gradient")) {
+            airbaseTitleContainer.classList.remove(cssClass);
+        }
+    });
+
+    airbaseTitleContainer.classList.add(
+        bgColors[feature.properties.coaltion_in_control]
+    );
+
 
     // update indicators
     ammoProgress.style.width = feature.properties.ammo + "%";
@@ -198,3 +216,10 @@ function getYoutubeLikeToDisplay(millisec) {
     }
     return minutes + "min " + seconds+ "s";
 }
+
+// Carousel: get active image
+$('#myCarousel').on('slide.bs.carousel', function () {
+    // get active image
+    let activeImage = $(".carousel-item .active");
+    console.log(activeImage);
+})
