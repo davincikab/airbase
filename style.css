@@ -75,6 +75,11 @@ body {
     color: white;
     font-weight: 800;
     padding: 4px;
+    padding: 0.7em;
+    background-repeat: no-repeat;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJyb3RhdGUoLTEzNSA3LjkwNCA2LjM3NCkiIGZpbGw9IiM5QTlGQTciIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHJlY3Qgd2lkdGg9IjEyIiBoZWlnaHQ9IjMiIHJ4PSIxLjUiLz48cmVjdCB4PSI5IiB3aWR0aD0iMyIgaGVpZ2h0PSIxMiIgcng9IjEuNSIvPjwvZz48L3N2Zz4=);
+    background-size: cover;
+    transform: rotateZ(180deg);
     background-color: var(--red);
 }
 
