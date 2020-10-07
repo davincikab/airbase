@@ -12,7 +12,7 @@
 <body>
     <main>
         <div class="row">
-            <div class="col-md-2 section-plane-groups">
+            <div class="col-md-2 section-plane-groups" id="section-plane">
                 <div class="logo mb-2">
                     <img src="icons/Airport Blue.png" alt="logo" class="img-circle img-sm">
                 </div>
@@ -75,7 +75,8 @@
                         </div>
                       </nav>
                 </div>
-                <div class="section-restart text-center my-1">
+                <div class="section-restart my-1">
+                    <span class="toggle-sidebar btn" id="toggle-sidebar">&times;</span>
                     <span class="text-light">Time before restart: <span id='restart-time'>00hrs 00Min</span></span>
                 </div>
                 <div class="map" id="map"></div>

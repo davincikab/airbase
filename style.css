@@ -53,15 +53,31 @@ body {
 }
 
 .section-plane-groups {
-    display:none;
     z-index: 3;
     position: absolute;
-    top: 8%;
-    width: 80%;
-    left: 0;
+    top: 13%;
+    width: 0%;
+    left: -10%;
     bottom: 0;
     background-color: darkgray;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
 }
+
+.section-plane-groups.open {
+    width: 80%;
+    left: 0;
+}
+
+.toggle-sidebar {
+    text-align: left !important;
+    font-size: large;
+    color: white;
+    font-weight: 800;
+    padding: 4px;
+    background-color: var(--red);
+}
+
 /* background */
 .bg-lighter {
     background-color:var(--lighter-gray)!important;;
@@ -187,5 +203,14 @@ section p {
         position: relative;
         display: block;
         background-color: transparent;
+        left: 0;
+    }
+
+    .section-restart {
+        text-align: center;
+    }
+
+    .toggle-sidebar {
+        display: none;
     }
 }

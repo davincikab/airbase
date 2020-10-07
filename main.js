@@ -13,8 +13,16 @@ var dummyGeojson = {
 };
 
 var countDown = document.getElementById("restart-time");
+var displaySidebar = document.getElementById("toggle-sidebar");
+var sidebar = document.getElementById("section-plane");
+
 var images = ["Airport_Blue", "Airport_Red", "Airport_Neutral", "Farp_Red", "Farp_Neutral"];
 var startTime = new Date();
+
+
+displaySidebar.addEventListener('click', function(e) {
+    sidebar.classList.toggle("open");
+});
 
 // load the image
 function loadImages() {
