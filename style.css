@@ -27,6 +27,11 @@ body {
     padding: 0;
     border-radius: 8px;
     border:2px solid var(--light);
+    margin-top: 0.5em;
+}
+
+.navbar-nav {
+    border-top: 1px solid white;
 }
 
 .navbar-nav .nav-item .nav-link {
@@ -47,6 +52,16 @@ body {
     border:2px solid var(--light);
 }
 
+.section-plane-groups {
+    display:none;
+    z-index: 3;
+    position: absolute;
+    top: 8%;
+    width: 80%;
+    left: 0;
+    bottom: 0;
+    background-color: darkgray;
+}
 /* background */
 .bg-lighter {
     background-color:var(--lighter-gray)!important;;
@@ -129,10 +144,18 @@ section p {
     margin-right:0.3em;
 }
 
+.aircrafts {
+    /* display: flex; */
+}
+
+.aircrafts span {
+    margin: 0.1em 0.3em;
+}
 /* util */
 .img {
     width:auto;
     height:35vh;
+    border-radius: 6px;
 }
 
 .img-sm {
@@ -149,8 +172,20 @@ section p {
     main {
         padding:2em 2em 0;
     }
+
+    .navbar {
+        margin-top: 0em;
+    }
+
     .navbar-nav {
         width: 100%;
         justify-content: space-evenly;
+        border-top: none;
+    }
+
+    .section-plane-groups {
+        position: relative;
+        display: block;
+        background-color: transparent;
     }
 }

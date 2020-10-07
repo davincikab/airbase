@@ -12,7 +12,9 @@ var dummyGeojson = {
     "features":[]
 };
 
+var countDown = document.getElementById("restart-time");
 var images = ["Airport_Blue", "Airport_Red", "Airport_Neutral", "Farp_Red", "Farp_Neutral"];
+var startTime = new Date();
 
 // load the image
 function loadImages() {
@@ -94,6 +96,7 @@ function loadData() {
 
         // update with Damascus
         let damascus = geoJson.features.find(feature => feature.properties.airportName = "Damascus");
+        console.log(damascus);
         updateSectionInfo(damascus);
     })
     .catch(error => {
@@ -160,4 +163,30 @@ function updateSectionInfo(feature) {
     defenceText.innerHTML = feature.properties.defences + "%";
     fuelText.innerHTML = feature.properties.fuel + "%";
     
+}
+
+setInterval(function(e){
+    let currentTime = new Date();
+    let dtime = currentTime - startTime;
+    countDown.innerHTML = getYoutubeLikeToDisplay(dtime);
+}, 1000);
+
+// TODO:Handle database errors;
+function getYoutubeLikeToDisplay(millisec) {
+    var seconds = (millisec / 1000).toFixed(0);
+    var minutes = Math.floor(seconds / 60);
+    var hours = "";
+    if (minutes > 59) {
+        hours = Math.floor(minutes / 60);
+        hours = (hours >= 10) ? hours : "0" + hours;
+        minutes = minutes - (hours * 60);
+        minutes = (minutes >= 10) ? minutes : "0" + minutes;
+    }
+
+    seconds = Math.floor(seconds % 60);
+    seconds = (seconds >= 10) ? seconds : "0" + seconds;
+    if (hours != "") {
+        return hours + "hrs " + minutes + "min " + seconds + "s";
+    }
+    return minutes + "min " + seconds+ "s";
 }
