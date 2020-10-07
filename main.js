@@ -48,7 +48,8 @@ map.on('load', function () {
                 "2", "airport_red",
                 "airport-15"
             ],
-            "icon-size":0.1
+            "icon-size":0.1,
+            "icon-rotate": ["get", "altitude"]
         },
         "paint":{
 
@@ -90,6 +91,10 @@ function loadData() {
 
         // update sources
         map.getSource("airbases").setData(geoJson);
+
+        // update with Damascus
+        let damascus = geoJson.features.find(feature => feature.properties.airportName = "Damascus");
+        updateSectionInfo(damascus);
     })
     .catch(error => {
         console.log(error);
@@ -106,6 +111,8 @@ function createGeojson(airbases) {
 
 
     airbases.forEach(airbase => {
+        airbase.altitude = parseFloat(airbase.altitude);
+
         let feature = {
             "type":"feature",
             "geometry":{
