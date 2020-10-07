@@ -146,13 +146,13 @@ function updateSectionInfo(feature) {
     airbaseTitle.innerHTML = feature.properties.airportName;
 
     // update indicators
-    ammoProgress.style.width = feature.properties.ammo + "px";
+    ammoProgress.style.width = feature.properties.ammo + "%";
     ammoProgress.setAttribute("aria-valuenow", feature.properties.ammo);
 
-    defenceProgress.style.width = feature.properties.defences + "px";
+    defenceProgress.style.width = feature.properties.defences + "%";
     defenceProgress.setAttribute("aria-valuenow", feature.properties.defences);
 
-    fuelProgress.style.width = feature.properties.fuel + "px";
+    fuelProgress.style.width = feature.properties.fuel + "%";
     fuelProgress.setAttribute("aria-valuenow", feature.properties.fuel);
 
     // text
