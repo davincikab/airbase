@@ -2,13 +2,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGF1ZGk5NyIsImEiOiJjanJtY3B1bjYwZ3F2NGFvOXZ1a
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-122.486052, 37.830348],
-    zoom: 15
+    style: 'mapbox://styles/mapbox/dark-v10',
+    center: {lng: 37.13453913170133, lat: 34.968030128763615},
+    zoom: 6.5
 });
 
 var dummyGeojson = {
-    "type":"featureCollection",
+    "type": "FeatureCollection",
     "features":[]
 };
 
@@ -30,6 +30,9 @@ map.on('load', function () {
 
         }
     });
+
+    // load icons
+    
 
     loadData();
 });
@@ -62,7 +65,10 @@ function createGeojson(airbases) {
             "type":"feature",
             "geometry":{
                 "type":"Point",
-                "coordinates":[airbase.longitude, airbase.latitude]
+                "coordinates":[
+                    parseFloat(airbase.longitude), 
+                    parseFloat(airbase.latitude)
+                ]
             },
             properties:airbase
         }
