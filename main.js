@@ -14,6 +14,10 @@ var dummyGeojson = {
     "features":[]
 };
 
+var modalImageIndex = 0;
+var carouselImagesLength;
+var modalImage = document.getElementById("img-modal");
+
 var countDown = document.getElementById("restart-time");
 var displaySidebar = document.getElementById("toggle-sidebar");
 var sidebar = document.getElementById("section-plane");
@@ -399,12 +403,46 @@ $('#airbaseCarousel').on('slid.bs.carousel', function () {
 // Image modal
 function triggerImageModalListener() {
     var carouselImages = document.querySelectorAll(".carousel-item img");
-    var modalImage = document.getElementById("img-modal");
+    
 
-    carouselImages.forEach(image => {
+    carouselImagesLength = carouselImages.length - 1;
+    carouselImages.forEach((image,i) => {
         image.addEventListener('click', function(e) {
             modalImage.src = this.src;
             $('#imageModal').modal('show');
+            modalImageIndex = i;
         });
     });
 }
+
+$(".modal-body .carousel-control-prev").on("click", function(e) {
+    modalImageIndex -= 1;
+    modalImageIndex = modalImageIndex < 0 ? carouselImagesLength : modalImageIndex;
+
+    console.log(modalImageIndex);
+    updateModalImage(modalImageIndex);
+});
+
+$(".modal-body .carousel-control-next").on("click", function(e) {
+    modalImageIndex++;
+    modalImageIndex = modalImageIndex > carouselImagesLength ? 0 : modalImageIndex;
+
+    console.log(modalImageIndex);
+    updateModalImage(modalImageIndex);
+});
+
+function updateModalImage(index) {
+    let carouselImages = document.querySelectorAll(".carousel-item img");
+    let targetImage = carouselImages[index];
+    modalImage.src = targetImage.src;
+}
+
+
+$('.modal-body').on("click", function(e) {
+    console.log("Body");
+    e.stopPropagation();
+});
+
+$('.modal-content').on("click", function(e) {
+    $('#imageModal').modal('hide');
+});

@@ -232,7 +232,7 @@ section p {
     width: 100%;
     align-items: center;
     height: 100vh;
-    background-color: #222121;
+    background-color: rgba(34, 33, 33, 0.74);
 }
 
 .modal-body {
