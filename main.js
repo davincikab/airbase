@@ -4,7 +4,13 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v10',
     center: {lng: 37.13453913170133, lat: 34.968030128763615},
-    zoom: 6.5
+    zoom: 6.5,
+    maxBounds:[[32.584585895746955, 31.7253009930011],[40.601966193972146, 38.17451439042071]]
+    // new mapboxgl.LngLatBounds(
+    //     new mapboxgl.LngLat[40.601966193972146, 38.17451439042071], 
+    //     new mapboxgl.LngLat[32.584585895746955, 31.7253009930011]
+    // )
+        
 });
 
 var dummyGeojson = {
@@ -218,17 +224,25 @@ function updateSectionInfo(feature) {
 
     // update carousel
     let carouselContainer = $(".carousel-inner");
-    let images = ["chart.jpg", "bg-image.jpg"];
+    let images = [
+        feature.properties.picture1	,
+        feature.properties.picture2	,
+        feature.properties.picture3	,
+        feature.properties.picture4
+    ];
+
+    images = images.filter(img => img);
+
     let htmlContent = "";
 
     images.forEach((image,i) => {
         if(i == 0) {
             htmlContent +=  '<div class="carousel-item active">'+
-                '<img src="'+image+'" class="d-block w-100" alt="'+image.split(".")[0]+'">'+
+                '<img src="images/'+image+'" class="d-block w-100" alt="'+image.split(".")[0]+'">'+
                 '</div>'
         } else {
             htmlContent +=  '<div class="carousel-item">'+
-                '<img src="'+image+'" class="d-block w-100" alt="'+image.split(".")[0]+'">'+
+                '<img src="images/'+image+'" class="d-block w-100" alt="'+image.split(".")[0]+'">'+
                 '</div>'
         }
         
