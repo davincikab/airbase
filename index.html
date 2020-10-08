@@ -114,18 +114,25 @@
                             <img src="chart.jpg" class="d-block w-100" alt="chart">
                           </div>
                         </div>
-                        <a class="carousel-control-prev" href="#airbaseCarousel" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#airbaseCarousel" role="button" data-slide="next">
+                        
+                        <!-- <a class="carousel-control-next" href="#airbaseCarousel" role="button" data-slide="next">
                           <span class="carousel-control-next-icon" aria-hidden="true"></span>
                           <span class="sr-only">Next</span>
-                        </a>
+                        </a> -->
                       </div>
-
-                    <div id="image-name" class="text-center"> 
-                        Damascus
+                    
+                    <div class="text-center image-name"> 
+                        <a class="carousel-control-prev" href="#airbaseCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        <span id="image-name">
+                            Damascus
+                        </span>
+                        <a class="carousel-control-next" href="#airbaseCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
 
@@ -191,6 +198,21 @@
                         <!-- <p class="section-p">-ILS-02 <span>110.10MHz</span></p> -->
                     </div>
                 </section>
+            </div>
+        </div>
+
+        <!-- modal -->
+        <div class="modal fade" id="imageModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <div class="modal-body">
+                        <img src="bg-image.jpg" alt="" id="img-modal">
+                      </div>
+                </div>
             </div>
         </div>
     </main>

@@ -342,6 +342,9 @@ function updateSectionInfo(feature) {
 
     otherInfoSection.empty();
     otherInfoSection.html(contentOtherInfo);
+
+    // update carousel imges
+    triggerImageModalListener();
 }
 
 // progress timer
@@ -393,4 +396,15 @@ $('#airbaseCarousel').on('slid.bs.carousel', function () {
 
 
 
-// reload the webpage
+// Image modal
+function triggerImageModalListener() {
+    var carouselImages = document.querySelectorAll(".carousel-item img");
+    var modalImage = document.getElementById("img-modal");
+
+    carouselImages.forEach(image => {
+        image.addEventListener('click', function(e) {
+            modalImage.src = this.src;
+            $('#imageModal').modal('show');
+        });
+    });
+}
