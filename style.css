@@ -146,6 +146,9 @@ body {
 }
 
 /* progrss bar */
+.carousel-item img {
+    height: 200px;
+}
 .progress {
     height: 25px;
     margin-top: 0.7em;
