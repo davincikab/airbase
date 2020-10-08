@@ -393,5 +393,5 @@ $('#airbaseCarousel').on('slid.bs.carousel', function () {
     let activeImage = $(".carousel-item.active").children()[0];
     $("#image-name").text(activeImage.alt);
 
-    console.log(activeImage.alt);
+    // console.log(activeImage.alt);
 })
