@@ -56,14 +56,7 @@ map.on('load', function () {
         "source":"airbases",
         "type":"symbol",
         "layout": {
-            "icon-image":[
-                'match',
-                ["get", "coaltion_in_control"],
-                "0", "airport_neutral",
-                "1", "airport_blue",
-                "2", "airport_red",
-                "airport-15"
-            ],
+            "icon-image":["get", "icon"],
             "icon-size":0.1,
             "icon-rotate": ["get", "altitude"]
         },
@@ -151,6 +144,14 @@ function createGeojson(airbases) {
 
     airbases.forEach(airbase => {
         airbase.altitude = parseFloat(airbase.altitude);
+        let ciCtr = airbase.coaltion_in_control;
+
+        // update the icon name
+        if(airbase.type == "1") {
+            airbase.icon =  ciCtr == "0" ? "airport_neutral" : ciCtr == "1" ? "airport_blue" :"airport_red";
+        } else {
+            airbase.icon =  ciCtr == "0" ? "farp_neutral" : ciCtr == "2" ? "farp_red" : "airport_blue" ; 
+        }
 
         let feature = {
             "type":"feature",
@@ -253,10 +254,24 @@ function updateSectionInfo(feature) {
 
 }
 
+var timeFrame = 8 * 60 * 60 * 1000;
+var timeProgessBar = document.getElementById("time-progress");
 setInterval(function(e){
+    // convert 8hrs to milliseconds
+    let time = 8 * 60 * 60 * 1000;
     let currentTime = new Date();
-    let dtime = currentTime - startTime;
-    countDown.innerHTML = getYoutubeLikeToDisplay(dtime);
+    timeFrame = timeFrame - 1000;
+
+    if(timeFrame < 0) {
+        timeFrame = time;
+    }
+
+    // update the text
+    countDown.innerHTML = getYoutubeLikeToDisplay(timeFrame);
+
+    // update the progess bar
+    timeProgessBar.style.width = (time- timeFrame) * 100 / time  + "%";
+
 }, 1000);
 
 // TODO:Handle database errors;
