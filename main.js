@@ -93,19 +93,41 @@ map.on('load', function () {
 });
 
 function loadData() {
-    d3.csv("LongBow_CSV.csv")
-    .then(data => {
-        console.log(data);
-        // create geojson
-        let geoJson = createGeojson(data);
+    d3.csv("LongBow_Static_CSV.csv")
+    .then(staticData => {
+        // read the other data
+        d3.csv("LongBow_Dynamic_CSV.csv")
+        .then(dynamicData => {
+            // console.log(dynamicData);
+            // merge both data
+            let data = staticData.map(sData => {
+                let relatedData = dynamicData.find(dData => dData.airport_name == sData.airport_name);
 
-        // update sources
-        map.getSource("airbases").setData(geoJson);
+                if(relatedData) {
+                    // sData = {...sData, ...relatedData};
+                    sData = $.extend({}, sData, relatedData);
+                }
 
-        // update with Damascus
-        let damascus = geoJson.features.find(feature => feature.properties.airportName = "Damascus");
-        console.log(damascus);
-        updateSectionInfo(damascus);
+                return sData;
+            });
+
+            console.log(data);
+            // create geojson
+            let geoJson = createGeojson(data);
+
+            // update sources
+            map.getSource("airbases").setData(geoJson);
+
+            // update with Damascus
+            let damascus = geoJson.features.find(feature => feature.properties.airport_name == "Damascus");
+            console.log(damascus);
+            updateSectionInfo(damascus);
+        })
+        .catch(error => {
+            console.error(error);
+            throw new Error(error.message);
+        });
+        
     })
     .catch(error => {
         console.log(error);
@@ -161,10 +183,14 @@ var bgColors = {
 };
 
 function updateSectionInfo(feature) {
+    console.log(feature);
     // update the title
-    airbaseTitle.innerHTML = feature.properties.airportName;
+    airbaseTitle.innerHTML = feature.properties.airport_name;
+    console.log(airbaseTitleContainer.classList);
+
     airbaseTitleContainer.classList.forEach(cssClass => {
-        if(cssClass.includes("bg-gradient")) {
+        console.log(cssClass);
+        if(cssClass && cssClass.includes("bg-gradient")) {
             airbaseTitleContainer.classList.remove(cssClass);
         }
     });
@@ -189,6 +215,28 @@ function updateSectionInfo(feature) {
     defenceText.innerHTML = feature.properties.defences + "%";
     fuelText.innerHTML = feature.properties.fuel + "%";
     
+
+    // update carousel
+    let carouselContainer = $(".carousel-inner");
+    let images = ["chart.jpg", "bg-image.jpg"];
+    let htmlContent = "";
+
+    images.forEach((image,i) => {
+        if(i == 0) {
+            htmlContent +=  '<div class="carousel-item active">'+
+                '<img src="'+image+'" class="d-block w-100" alt="'+image.split(".")[0]+'">'+
+                '</div>'
+        } else {
+            htmlContent +=  '<div class="carousel-item">'+
+                '<img src="'+image+'" class="d-block w-100" alt="'+image.split(".")[0]+'">'+
+                '</div>'
+        }
+        
+    });
+
+    carouselContainer.empty();
+    carouselContainer.html(htmlContent);
+
 }
 
 setInterval(function(e){
@@ -218,8 +266,10 @@ function getYoutubeLikeToDisplay(millisec) {
 }
 
 // Carousel: get active image
-$('#myCarousel').on('slide.bs.carousel', function () {
+$('#airbaseCarousel').on('slid.bs.carousel', function () {
     // get active image
-    let activeImage = $(".carousel-item .active");
-    console.log(activeImage);
+    let activeImage = $(".carousel-item.active").children()[0];
+    $("#image-name").text(activeImage.alt);
+
+    console.log(activeImage.alt);
 })
