@@ -6,7 +6,7 @@
     --deep-blue:#024564;
     --gray:#f8f9fa;
     --light:#ababab;
-    --lighter-gray:#f8f9fa61;
+    --lighter-gray:rgba(248, 249, 250, 0.38);
     --green:#18b118;
     --white:#fff;
 }
@@ -150,7 +150,7 @@ body {
     height: 25px;
     margin-top: 0.7em;
     position: relative;
-    background-color: #e9ecef00;
+    background-color: rgba(233, 236, 239, 0);
     border-radius: .25rem;
     border: 2px solid var(--lighter-gray);
 }
@@ -183,9 +183,6 @@ section p {
     margin-right:0.3em;
 }
 
-.aircrafts {
-    /* display: flex; */
-}
 
 .aircrafts span {
     margin: 0.1em 0.3em;

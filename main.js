@@ -6,10 +6,6 @@ var map = new mapboxgl.Map({
     center: {lng: 37.13453913170133, lat: 34.968030128763615},
     zoom: 6.5,
     maxBounds:[[32.584585895746955, 31.7253009930011],[40.601966193972146, 38.17451439042071]]
-    // new mapboxgl.LngLatBounds(
-    //     new mapboxgl.LngLat[40.601966193972146, 38.17451439042071], 
-    //     new mapboxgl.LngLat[32.584585895746955, 31.7253009930011]
-    // )
         
 });
 
@@ -97,7 +93,6 @@ function loadData() {
         // read the other data
         d3.csv("LongBow_Dynamic_CSV.csv")
         .then(dynamicData => {
-            // console.log(dynamicData);
             // merge both data
             let data = staticData.map(sData => {
                 let relatedData = dynamicData.find(dData => dData.airport_name == sData.airport_name);
@@ -153,6 +148,7 @@ function createGeojson(airbases) {
             airbase.icon =  ciCtr == "0" ? "farp_neutral" : ciCtr == "2" ? "farp_red" : "airport_blue" ; 
         }
 
+        // create a feature
         let feature = {
             "type":"feature",
             "geometry":{
@@ -172,9 +168,11 @@ function createGeojson(airbases) {
     return featureCollection;
 }
 
+// Airbase info section 
 var airbaseTitle = document.getElementById("airbase-title");
 var airbaseTitleContainer = document.getElementById("title-contaier");
 
+// progress bars
 var ammoProgress = document.getElementById("ammo-progress");
 var defenceProgress = document.getElementById("defence-progress");
 var fuelProgress = document.getElementById("fuel-progress");
@@ -242,7 +240,6 @@ function updateSectionInfo(feature) {
     images = images.filter(img => img);
 
     let htmlContent = "";
-
     images.forEach((image,i) => {
         if(i == 0) {
             htmlContent +=  '<div class="carousel-item active">'+
@@ -347,6 +344,7 @@ function updateSectionInfo(feature) {
     otherInfoSection.html(contentOtherInfo);
 }
 
+// progress timer
 var timeFrame = 8 * 60 * 60 * 1000;
 var timeProgessBar = document.getElementById("time-progress");
 setInterval(function(e){
@@ -367,7 +365,6 @@ setInterval(function(e){
 
 }, 1000);
 
-// TODO:Handle database errors;
 function getYoutubeLikeToDisplay(millisec) {
     var seconds = (millisec / 1000).toFixed(0);
     var minutes = Math.floor(seconds / 60);
@@ -392,6 +389,8 @@ $('#airbaseCarousel').on('slid.bs.carousel', function () {
     // get active image
     let activeImage = $(".carousel-item.active").children()[0];
     $("#image-name").text(activeImage.alt);
+});
 
-    // console.log(activeImage.alt);
-})
+
+
+// reload the webpage
