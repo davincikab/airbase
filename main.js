@@ -183,6 +183,13 @@ var ammoText = document.getElementById("ammo-text");
 var defenceText = document.getElementById("defence-text");
 var fuelText = document.getElementById("fuel-text");
 
+// sections
+var runawaySection = $("#runaway");
+var frequencySection = $("#frequency");
+var navaidsSection = $("#navaids");
+var aircraftsSection = $("#aircrafts");
+var otherInfoSection = $("#other-info");
+
 var bgColors = {
     "0":"bg-gradient-neutral",
     "1":"bg-gradient-blue",
@@ -252,6 +259,92 @@ function updateSectionInfo(feature) {
     carouselContainer.empty();
     carouselContainer.html(htmlContent);
 
+    // runaway info
+    let runawayInfo = [
+        feature.properties.runway1,	
+        feature.properties.runway2,	
+        feature.properties.runway3,
+    ];
+
+    runawayInfo = runawayInfo.filter(rwi => rwi);
+
+    let content = runawayInfo[0] ? runawayInfo.reduce((a,b) => "<p>"+a+"</p><p>"+b+"</p>") : "";
+
+    runawaySection.empty();
+    runawaySection.html(content);
+
+    // frequency info
+    let freq = [
+        feature.properties.frequencie1,	
+        feature.properties.frequencie2,	
+        feature.properties.frequencie3,
+    ];
+
+    freq = freq.filter(fq => fq);
+
+    let contentFreq = freq[0] ? freq.reduce((a,b) => (
+        "<p class='section-p'><span>"+a+"</span></p>"+
+        "<p class='section-p'><span>"+b+"</span></p>"
+        )
+    ) : "";
+
+    frequencySection.empty();
+    frequencySection.html(contentFreq);
+
+    // navaids
+    let navaid = [
+        feature.properties.navaid1,	
+        feature.properties.navaid2,	
+        feature.properties.navaid3,	
+        feature.properties.navaid4,
+    ];
+
+    navaid = navaid.filter(naid => naid);
+
+    let contentNavaid = navaid[0] ? navaid.reduce((a,b) => (
+        "<p class='section-p'><span>"+a+"</span></p>"+
+        "<p class='section-p'><span>"+b+"</span></p>"
+        )
+    ) : "";;
+    
+    navaidsSection.empty();
+    navaidsSection.html(contentNavaid);
+
+    // aircrafts available
+    let contentAir = [
+        feature.properties['a/c_type1'],
+        feature.properties['a/c_type2'],
+        feature.properties['a/c_type3'],	
+        feature.properties['a/c_type4']
+    ];
+
+    contentAir = contentAir.filter(ca => ca);
+
+    let aircraftQuantities = [
+        feature.properties['a/c_quantity1'],
+        feature.properties['a/c_quantity2'],	
+        feature.properties['a/c_quantity3'],
+        feature.properties['a/c_quantity4']
+    ];
+
+    aircraftQuantities = aircraftQuantities.filter(aq => aq);
+
+
+    let contentAircraft = contentAir[0] ? contentAir.reduce((a,b) => (
+        "<span><img src='icons/airport-15.svg' alt='airplane'>&times;"+a+"</span>"+
+        "<span><img src='icons/airport-15.svg' alt='airplane'>&times;"+b+"</span>"
+        )
+    ) : "";
+    
+    aircraftsSection.empty();
+    aircraftsSection.html(contentAircraft);
+
+    // other information
+    let otherInfo = [];
+    let contentOtherInfo = otherInfo[0] ? otherInfo.reduce((a,b) => "<p>"+a+"</p><p>"+b+"</p>") : "";
+
+    otherInfoSection.empty();
+    otherInfoSection.html(contentOtherInfo);
 }
 
 var timeFrame = 8 * 60 * 60 * 1000;
